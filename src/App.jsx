@@ -74,7 +74,7 @@ const App = () => {
         </header>
 
         <section className="all-movies">
-          <h2 className="mt-[40px] text-gradient">All Movies</h2>
+          <h2 className="mt-[40px] text-gradient">Feature Movies</h2>
           {isLoading ? (
             <Spinner />
           ) : errorMessage ? (
