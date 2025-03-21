@@ -80,7 +80,7 @@ const MovieDetails = () => {
               alt={movie.title}
               className="object-cover w-full h-full rounded-xl opacity-80"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div>
           </div>
           <div className="lg:w-1/2 flex flex-col justify-center space-y-6">
             <h2 className="text-5xl font-extrabold text-[#f81a1a] leading-tight">
