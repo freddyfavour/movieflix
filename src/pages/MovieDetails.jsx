@@ -12,6 +12,25 @@ const API_OPTIONS = {
   },
 };
 
+const SkeletonLoader = () => (
+  <div className="relative max-w-7xl mx-auto p-10 bg-[#030014] rounded-xl shadow-xl text-white flex flex-col lg:flex-row gap-12 animate-pulse">
+    <div className="w-full lg:w-1/2 h-[600px] bg-gray-700 rounded-xl"></div>
+    <div className="lg:w-1/2 flex flex-col space-y-6">
+      <div className="h-20 mb-[4rem] bg-gray-700 rounded"></div>
+      <div className="h-30 bg-gray-700 rounded w-3/4"></div>
+      <div className="grid mt-[3rem] grid-cols-2 gap-4">
+        <div className="h-6 bg-gray-700 rounded"></div>
+        <div className="h-6 bg-gray-700 rounded"></div>
+        <div className="h-6 bg-gray-700 rounded"></div>
+        <div className="h-6 bg-gray-700 rounded"></div>
+        <div className="h-6 bg-gray-700 rounded"></div>
+      </div>
+      <div className="h-10 w-[3rem]mt-[4rem] bg-gray-700 rounded"></div>
+      <div className="mt-4 w-full rounded-xl overflow-hidden shadow-lg"></div>
+    </div>
+  </div>
+);
+
 const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
@@ -53,12 +72,7 @@ const MovieDetails = () => {
     fetchMovieDetails();
   }, [id]);
 
-  if (isLoading)
-    return (
-      <p className="text-center text-gray-300 text-lg">
-        Loading movie details...
-      </p>
-    );
+  if (isLoading) return <SkeletonLoader />;
   if (error)
     return (
       <p className="text-center text-red-500 text-lg font-semibold">{error}</p>
@@ -68,7 +82,7 @@ const MovieDetails = () => {
     <div className="relative max-w-7xl mx-auto p-10 bg-[#030014] rounded-xl shadow-xl text-white flex flex-col lg:flex-row gap-12">
       <Link
         to="/"
-        className="fixed top-5 left-5 text-[#f81a1a] z-50 text-lg font-semibold hover:underline bg-gray-800 px-4 py-2 rounded-lg shadow-lg"
+        className="absolute top-5 left-5 md:top-10 md:left-10 text-[#f81a1a] text-lg font-semibold hover:underline bg-gray-800 px-4 py-2 rounded-lg shadow-lg z-10"
       >
         ← Back to Home
       </Link>
@@ -80,7 +94,7 @@ const MovieDetails = () => {
               alt={movie.title}
               className="object-cover w-full h-full rounded-xl opacity-80"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
           </div>
           <div className="lg:w-1/2 flex flex-col justify-center space-y-6">
             <h2 className="text-5xl font-extrabold text-[#f81a1a] leading-tight">
