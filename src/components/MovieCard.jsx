@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useMovie } from "../MovieContext";
 
 const MovieCard = ({ movie = {} }) => {
   const {
@@ -12,7 +13,11 @@ const MovieCard = ({ movie = {} }) => {
   } = movie;
 
   return (
-    <Link to={`/movie/${id}`} className="movie-card">
+    <Link
+      to={`/movie/${id}`}
+      className="movie-card"
+      onClick={() => setSelectedMovie(movie)}
+    >
       <img
         src={
           poster_path

@@ -2,6 +2,7 @@ import { useState, useEffect, Suspense, lazy } from "react";
 import Search from "./components/Search";
 import { useDebounce } from "react-use";
 import Skeleton from "./components/Skeleton";
+import { useMovie } from "./MovieContext";
 
 const MovieCard = lazy(() => import("./components/MovieCard"));
 
@@ -17,6 +18,7 @@ const API_OPTIONS = {
 };
 
 const App = () => {
+  const { setSelectedMovie } = useMovie();
   const [searchTerm, setSearchTerm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [movieList, setMovieList] = useState([]);
