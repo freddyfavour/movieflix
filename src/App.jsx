@@ -66,7 +66,11 @@ const App = () => {
 
       <div className="wrapper">
         <header>
-          <img src="./hero.png" alt="Hero Banner" />
+          <img
+            src="./hero.png"
+            alt="Hero Banner"
+            className="w-40 sm:w-56 md:w-72 lg:w-96 xl:w-[400px] mx-auto"
+          />
           <h1>
             Get Movie Details With <br />{" "}
             <span className="text-gradient">MovieFlix</span>
