@@ -3,6 +3,7 @@ import Search from "./components/Search";
 import { useDebounce } from "react-use";
 import Skeleton from "./components/Skeleton";
 import { useMovie } from "./MovieContext";
+import { ArrowLeftIcon } from "lucide-react";
 
 const MovieCard = lazy(() => import("./components/MovieCard"));
 
@@ -24,6 +25,7 @@ const App = () => {
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 800, [searchTerm]);
 
@@ -43,7 +45,7 @@ const App = () => {
 
       const data = await response.json();
 
-      if (data.Response == "False") {
+      if (data.Response === "False") {
         setErrorMessage(data.error || "Failed to fetch movies.");
         setMovieList([]);
         return;
@@ -65,20 +67,40 @@ const App = () => {
   return (
     <main>
       <div className="pattern" />
-
       <div className="wrapper">
-        <header>
-          <img
-            src="./hero.png"
-            alt="Hero Banner"
-            className="w-40 sm:w-56 md:w-72 lg:w-96 xl:w-[400px] mx-auto"
+        {!isSearching && (
+          <header>
+            <img
+              src="./hero.png"
+              alt="Hero Banner"
+              className="w-40 sm:w-56 md:w-72 lg:w-96 xl:w-[400px] mx-auto"
+            />
+            <h1>
+              Get Movie Details With <br />
+              <span className="text-gradient">MovieFlix</span>
+            </h1>
+          </header>
+        )}
+
+        <div className="flex items-center w-full gap-[1rem]">
+          {isSearching && (
+            <ArrowLeftIcon
+              className="text-gray-100/75 cursor-pointer w-10 h-10 mt-[2rem]"
+              onClick={() => {
+                setIsSearching(false);
+                setSearchTerm("");
+              }}
+            />
+          )}
+          <Search
+            searchTerm={searchTerm}
+            setSearchTerm={(value) => {
+              setSearchTerm(value);
+              if (!isSearching) setIsSearching(true);
+            }}
+            onFocus={() => setIsSearching(true)}
           />
-          <h1>
-            Get Movie Details With <br />{" "}
-            <span className="text-gradient">MovieFlix</span>
-          </h1>
-          <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-        </header>
+        </div>
 
         <section className="all-movies">
           <h2 className="mt-[40px] text-gradient">Feature Movies</h2>
